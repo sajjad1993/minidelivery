@@ -22,7 +22,7 @@ func (u *Ui) Listen() {
 	y, err := strconv.Atoi(yy)
 	if err != nil {
 		// ... handle error
-		fmt.Println("input is wrong ")
+		fmt.Printf("\n\n input is wrong \n\n")
 		return
 	}
 	dest := entity.Location{

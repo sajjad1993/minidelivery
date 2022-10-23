@@ -1,8 +1,6 @@
 package interactor
 
 import (
-	"context"
-	"fmt"
 	"log"
 	"minidelivery/internal/contract"
 	"minidelivery/internal/entity"
@@ -16,11 +14,7 @@ type Interactor struct {
 func (i *Interactor) Go(dest entity.Location) {
 	// get from terminal
 	// for example
-	ctx := context.Background()
-	err := i.main.Deliver(dest, ctx)
-	if err != nil {
-		fmt.Printf("some error occurd %s \n ", err)
-	}
+	_ = i.main.Deliver(dest)
 }
 func New(main contract.MainControl, logger *log.Logger) *Interactor {
 	interactor := Interactor{

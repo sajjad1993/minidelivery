@@ -1,12 +1,11 @@
 package contract
 
 import (
-	"context"
 	"minidelivery/internal/entity"
 )
 
 type MainControl interface {
-	Deliver(dest entity.Location, ctx context.Context) error
+	Deliver(dest entity.Location) int
 	HandleFreeDeliveries()
 }
 

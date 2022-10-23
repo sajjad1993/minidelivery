@@ -6,6 +6,32 @@ import (
 	"minidelivery/internal/entity"
 )
 
+func (m *MainControl) HandleFreeDeliveries() {
+	fmt.Println("handle delivery now .... ")
+	for value := range m.freedDeliveries {
+		fmt.Printf("\n\n number:%d is free now \n\n ", value.GetNumber())
+		for key, v := range m.usedDeliveries {
+			if value.GetNumber() == v.GetNumber() {
+				m.freeDeliveries = append(m.freeDeliveries, value)
+				// remove from used deliveries
+				m.usedDeliveries = remove(m.usedDeliveries, key)
+				break
+			}
+		}
+	}
+}
+
+// Deliver delivers the order
+func (m *MainControl) Deliver(dest entity.Location) int {
+	//select the best delivery
+	deliveryGuy := m.selectAndRemoveDelivery(dest)
+	if deliveryGuy != nil {
+		go deliveryGuy.Move(dest, m.freedDeliveries)
+		return deliveryGuy.GetNumber()
+	}
+	return -1
+}
+
 // selectBestDelivery gets a location and returns its index
 func (m *MainControl) selectBestDelivery(dest entity.Location) (int, error) {
 	if len(m.freeDeliveries) == 0 {
@@ -38,7 +64,7 @@ func (m *MainControl) selectAndRemoveDelivery(dest entity.Location) contract.Del
 	// get index
 	index, err := m.selectBestDelivery(dest)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("\n\n %s \n\n ", err)
 		return nil
 	}
 	//append to used deliveries
@@ -50,33 +76,7 @@ func (m *MainControl) selectAndRemoveDelivery(dest entity.Location) contract.Del
 	return selectedDelivery
 }
 
-// Deliver delivers the order
-func (m *MainControl) Deliver(dest entity.Location) int {
-	//select the best delivery
-	deliveryGuy := m.selectAndRemoveDelivery(dest)
-	if deliveryGuy != nil {
-		go deliveryGuy.Move(dest, m.freedDeliveries)
-		return deliveryGuy.GetNumber()
-	}
-	return -1
-}
-
 // removes an item from slice
 func remove[T any](slice []T, s int) []T {
 	return append(slice[:s], slice[s+1:]...)
-}
-
-func (m *MainControl) HandleFreeDeliveries() {
-	fmt.Println("handle delivery now .... ")
-	for value := range m.freedDeliveries {
-		fmt.Printf("number:%d is free now \n ", value.GetNumber())
-		for key, v := range m.usedDeliveries {
-			if value.GetNumber() == v.GetNumber() {
-				m.freeDeliveries = append(m.freeDeliveries, value)
-				// remove from used deliveries
-				m.usedDeliveries = remove(m.usedDeliveries, key)
-				break
-			}
-		}
-	}
 }
