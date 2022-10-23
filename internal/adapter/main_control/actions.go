@@ -1,9 +1,7 @@
 package main_control
 
 import (
-	"context"
 	"fmt"
-	"minidelivery/internal/adapter/delivery"
 	"minidelivery/internal/contract"
 	"minidelivery/internal/entity"
 )
@@ -28,7 +26,7 @@ func (m *MainControl) getTheNearest(dest entity.Location) int {
 	theNearest := 100000
 	index := 0
 	for i, value := range m.freeDeliveries {
-		distance := delivery.CalculateDistance(value.GetLocation(), dest)
+		distance := value.GetLocation().Distance(dest)
 		if distance < theNearest {
 			theNearest = distance
 			index = i
@@ -48,24 +46,23 @@ func (m *MainControl) selectAndRemoveDelivery(dest entity.Location) contract.Del
 	m.usedDeliveries = append(m.usedDeliveries, selectedDelivery)
 	// remove from free deliveries
 	m.freeDeliveries = remove(m.freeDeliveries, index)
-	fmt.Printf("free : %q \n used : %q  \n ", m.freeDeliveries, m.usedDeliveries)
 
 	return selectedDelivery
 }
 
 // Deliver delivers the order
-func (m *MainControl) Deliver(dest entity.Location, ctx context.Context) error {
+func (m *MainControl) Deliver(dest entity.Location) int {
 	//select the best delivery
 	deliveryGuy := m.selectAndRemoveDelivery(dest)
 	if deliveryGuy != nil {
 		go deliveryGuy.Move(dest, m.freedDeliveries)
-
+		return deliveryGuy.GetNumber()
 	}
-	return nil
+	return -1
 }
 
-// removes an item from slice //todo change it to generics
-func remove(slice []contract.Deliver, s int) []contract.Deliver {
+// removes an item from slice
+func remove[T any](slice []T, s int) []T {
 	return append(slice[:s], slice[s+1:]...)
 }
 
@@ -78,8 +75,6 @@ func (m *MainControl) HandleFreeDeliveries() {
 				m.freeDeliveries = append(m.freeDeliveries, value)
 				// remove from used deliveries
 				m.usedDeliveries = remove(m.usedDeliveries, key)
-				fmt.Printf("after delivery :  free : %q \n used : %q  \n ", m.freeDeliveries, m.usedDeliveries)
-
 				break
 			}
 		}

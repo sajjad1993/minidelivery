@@ -18,7 +18,7 @@ func New(count int, logger *log.Logger) *MainControl {
 	var deliveries []contract.Deliver
 
 	for i := 0; i < count; i++ {
-		del := delivery.New(i)
+		del := delivery.New(i + 1)
 		deliveries = append(deliveries, del)
 	}
 	ch := make(chan contract.Deliver)

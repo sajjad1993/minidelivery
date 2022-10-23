@@ -14,5 +14,5 @@ func (d *Delivery) IsFree() bool {
 	return d.free
 }
 func New(number int) *Delivery {
-	return &Delivery{Number: number + 1, free: true}
+	return &Delivery{Number: number, free: true}
 }

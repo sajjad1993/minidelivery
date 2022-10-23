@@ -2,7 +2,6 @@ package delivery
 
 import (
 	"fmt"
-	"math"
 	"minidelivery/internal/contract"
 	"minidelivery/internal/entity"
 	"time"
@@ -20,7 +19,7 @@ func (d *Delivery) Move(dest entity.Location, freedDeliveries chan<- contract.De
 	// set his self unfree
 	d.free = false
 	// start moving to destination
-	distance := CalculateDistance(d.location, dest)
+	distance := d.location.Distance(dest)
 
 	for i := 0; i < distance; i++ {
 		time.Sleep(time.Second * 1)
@@ -33,11 +32,4 @@ func (d *Delivery) Move(dest entity.Location, freedDeliveries chan<- contract.De
 
 	freedDeliveries <- d
 
-}
-
-func CalculateDistance(source, destination entity.Location) int {
-	v1 := math.Pow(float64(source.X-destination.Y), 2)
-	v2 := math.Pow(float64(source.Y-destination.Y), 2)
-
-	return int(math.Round(math.Sqrt(v1 + v2)))
 }
