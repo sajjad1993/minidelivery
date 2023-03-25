@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/sajjad1993/minidelivery/internal/adapter/main_control"
+	"github.com/sajjad1993/minidelivery/internal/interactor"
+	"github.com/sajjad1993/minidelivery/internal/ui"
 	"log"
-	"minidelivery/internal/adapter/main_control"
-	"minidelivery/internal/interactor"
-	"minidelivery/internal/ui"
 	"os"
 	"os/signal"
 	"syscall"

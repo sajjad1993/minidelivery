@@ -1,6 +1,6 @@
 package delivery
 
-import "minidelivery/internal/entity"
+import "github.com/sajjad1993/minidelivery/internal/entity"
 
 // Delivery moves to destination
 type Delivery struct {

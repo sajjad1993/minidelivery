@@ -1,9 +1,9 @@
 package delivery
 
 import (
+	"github.com/sajjad1993/minidelivery/internal/contract"
+	"github.com/sajjad1993/minidelivery/internal/entity"
 	"github.com/stretchr/testify/assert"
-	"minidelivery/internal/contract"
-	"minidelivery/internal/entity"
 	"testing"
 	"time"
 )

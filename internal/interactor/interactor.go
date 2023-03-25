@@ -1,9 +1,9 @@
 package interactor
 
 import (
+	"github.com/sajjad1993/minidelivery/internal/contract"
+	"github.com/sajjad1993/minidelivery/internal/entity"
 	"log"
-	"minidelivery/internal/contract"
-	"minidelivery/internal/entity"
 )
 
 type Interactor struct {

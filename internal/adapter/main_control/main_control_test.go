@@ -1,9 +1,9 @@
 package main_control
 
 import (
+	"github.com/sajjad1993/minidelivery/internal/entity"
 	"github.com/stretchr/testify/assert"
 	"log"
-	"minidelivery/internal/entity"
 	"testing"
 	"time"
 )

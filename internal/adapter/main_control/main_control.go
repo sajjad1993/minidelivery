@@ -1,9 +1,9 @@
 package main_control
 
 import (
+	"github.com/sajjad1993/minidelivery/internal/adapter/delivery"
+	"github.com/sajjad1993/minidelivery/internal/contract"
 	"log"
-	"minidelivery/internal/adapter/delivery"
-	"minidelivery/internal/contract"
 )
 
 // MainControl sends delivery`s to their duties
@@ -23,8 +23,8 @@ func New(count int, logger *log.Logger) *MainControl {
 	}
 	ch := make(chan contract.Deliver)
 	return &MainControl{
-		freeDeliveries:  deliveries,
-		logger:          logger,
+		freeDeliveries: deliveries,
+		logger:         logger,
 		freedDeliveries: ch,
 	}
 }

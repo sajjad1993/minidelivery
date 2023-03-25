@@ -2,8 +2,8 @@ package ui
 
 import (
 	"fmt"
-	"minidelivery/internal/entity"
-	"minidelivery/internal/interactor"
+	"github.com/sajjad1993/minidelivery/internal/entity"
+	"github.com/sajjad1993/minidelivery/internal/interactor"
 	"strconv"
 )
 

@@ -1,7 +1,7 @@
 package contract
 
 import (
-	"minidelivery/internal/entity"
+	"github.com/sajjad1993/minidelivery/internal/entity"
 )
 
 type MainControl interface {

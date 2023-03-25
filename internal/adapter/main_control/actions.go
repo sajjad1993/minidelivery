@@ -2,8 +2,8 @@ package main_control
 
 import (
 	"fmt"
-	"minidelivery/internal/contract"
-	"minidelivery/internal/entity"
+	"github.com/sajjad1993/minidelivery/internal/contract"
+	"github.com/sajjad1993/minidelivery/internal/entity"
 )
 
 func (m *MainControl) HandleFreeDeliveries() {
